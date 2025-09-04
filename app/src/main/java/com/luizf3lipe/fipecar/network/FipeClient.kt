@@ -11,13 +11,16 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.get
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
 
 class FipeClient {
     private val _baseUrl = "https://parallelum.com.br/fipe/api/v1/carros"
     private val client = HttpClient(Android) {
         install(Logging)
         install(ContentNegotiation) {
-            json()
+            json(Json {
+                ignoreUnknownKeys = true
+            })
         }
     }
 
