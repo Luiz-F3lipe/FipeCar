@@ -1,13 +1,10 @@
 package com.luizf3lipe.fipecar.screens.marcas
 
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.luizf3lipe.fipecar.domain.model.Marca
 import com.luizf3lipe.fipecar.domain.repository.IFipeRepository
-import com.luizf3lipe.fipecar.network.repository.FipeRepository
 import kotlinx.coroutines.launch
 
 class MarcasViewModel(

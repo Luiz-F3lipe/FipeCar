@@ -1,4 +1,4 @@
-package com.luizf3lipe.fipecar.screens.marcas
+package com.luizf3lipe.fipecar.screens.modelos
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -22,17 +23,22 @@ import androidx.navigation.NavController
 import com.luizf3lipe.fipecar.AppViewModelFactory
 import com.luizf3lipe.fipecar.components.Goback
 import com.luizf3lipe.fipecar.components.SearchInput
-import com.luizf3lipe.fipecar.components.marcas.MarcaCard
+import com.luizf3lipe.fipecar.components.modelos.ModeloCard
 import com.luizf3lipe.fipecar.ui.theme.Typography
 import com.luizf3lipe.fipecar.ui.theme.Zinc50
 import com.luizf3lipe.fipecar.ui.theme.Zinc950
 
 @Composable
-fun MarcasScreen(
+fun ModelosScreen(
     navController: NavController,
-    viewModel: MarcasViewModel = viewModel(factory = AppViewModelFactory())
+    codigoMarca: String,
+    viewModel: ModelosViewModel = viewModel(factory = AppViewModelFactory())
 ) {
-    val marcas = viewModel.marcas
+    LaunchedEffect(codigoMarca) {
+        viewModel.carregarModelos(codigoMarca)
+    }
+
+    val modelos = viewModel.modelos
 
     Column(
         modifier = Modifier
@@ -40,7 +46,7 @@ fun MarcasScreen(
             .fillMaxSize()
             .padding(horizontal = 24.dp),
         verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
             modifier = Modifier
@@ -52,7 +58,7 @@ fun MarcasScreen(
 
             // Título no topo, centralizado
             Text(
-                text = "Marcas",
+                text = "Modelos",
                 style = Typography.headlineLarge,
                 color = Zinc50,
                 modifier = Modifier
@@ -64,27 +70,22 @@ fun MarcasScreen(
 
         // Input um pouco mais embaixo
         SearchInput(
-            placeholder = "Buscar marcas...",
+            placeholder = "Buscar por modelos...",
             onSearch = { search ->
-                viewModel.filtrarMarca(search)
+                viewModel.filtrarModelos(search)
             }
         )
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Lista rolável ocupa o resto da tela
         LazyColumn(
             modifier = Modifier.fillMaxSize().padding(bottom = 52.dp),
-            verticalArrangement = Arrangement.spacedBy(-12.dp),
+            verticalArrangement = Arrangement.spacedBy((-12).dp)
         ) {
-            items(marcas) { marca ->
-                MarcaCard(
-                    marca = marca.nome,
-                    codigo = marca.codigo,
-                    modifier = Modifier.fillMaxWidth(),
-                    onSelected = {
-                        navController.navigate("modelos/${marca.codigo}")
-                    }
+            items(modelos) { modelo ->
+                ModeloCard(
+                    codModelo = modelo.codigo,
+                    nome = modelo.nome
                 )
             }
         }

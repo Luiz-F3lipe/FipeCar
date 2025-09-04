@@ -6,6 +6,7 @@ import com.luizf3lipe.fipecar.domain.repository.IFipeRepository
 import com.luizf3lipe.fipecar.network.FipeClient
 import com.luizf3lipe.fipecar.network.repository.FipeRepository
 import com.luizf3lipe.fipecar.screens.marcas.MarcasViewModel
+import com.luizf3lipe.fipecar.screens.modelos.ModelosViewModel
 
 object AppModule {
     val fipeClient = FipeClient()
@@ -18,6 +19,9 @@ class AppViewModelFactory : ViewModelProvider.Factory {
         return when {
             modelClass.isAssignableFrom(MarcasViewModel::class.java) -> {
                 MarcasViewModel(AppModule.fipeRepository) as T
+            }
+            modelClass.isAssignableFrom(ModelosViewModel::class.java) -> {
+                ModelosViewModel(AppModule.fipeRepository) as T
             }
             else -> throw IllegalArgumentException("ViewModel desconhecido")
         }
