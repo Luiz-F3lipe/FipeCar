@@ -28,7 +28,7 @@ class FipeRepository(
         }
     }
 
-    override suspend fun getAnos(codMarca: String, codModelo: String): List<Anos> {
+    override suspend fun getAnos(codMarca: String, codModelo: Int): List<Anos> {
         return client.getAnos(codMarca, codModelo).map { ano ->
             Anos(
                 codigo = ano.codigo,

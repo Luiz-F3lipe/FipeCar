@@ -5,8 +5,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.luizf3lipe.fipecar.domain.repository.IFipeRepository
 import com.luizf3lipe.fipecar.network.FipeClient
 import com.luizf3lipe.fipecar.network.repository.FipeRepository
+import com.luizf3lipe.fipecar.screens.anos.AnosViewModel
 import com.luizf3lipe.fipecar.screens.marcas.MarcasViewModel
 import com.luizf3lipe.fipecar.screens.modelos.ModelosViewModel
+import com.luizf3lipe.fipecar.screens.veiculo.VeiculoViewModel
 
 object AppModule {
     val fipeClient = FipeClient()
@@ -22,6 +24,12 @@ class AppViewModelFactory : ViewModelProvider.Factory {
             }
             modelClass.isAssignableFrom(ModelosViewModel::class.java) -> {
                 ModelosViewModel(AppModule.fipeRepository) as T
+            }
+            modelClass.isAssignableFrom(AnosViewModel::class.java) -> {
+                AnosViewModel(AppModule.fipeRepository) as T
+            }
+            modelClass.isAssignableFrom(VeiculoViewModel::class.java) -> {
+                VeiculoViewModel(AppModule.fipeRepository) as T
             }
             else -> throw IllegalArgumentException("ViewModel desconhecido")
         }

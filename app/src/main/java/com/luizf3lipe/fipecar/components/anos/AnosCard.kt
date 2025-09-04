@@ -1,4 +1,4 @@
-package com.luizf3lipe.fipecar.components.modelos
+package com.luizf3lipe.fipecar.components.anos
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -28,9 +28,9 @@ import com.luizf3lipe.fipecar.ui.theme.Zinc100
 import com.luizf3lipe.fipecar.ui.theme.Zinc900
 
 @Composable
-fun ModeloCard(
+fun AnosCard(
     modifier: Modifier = Modifier,
-    codModelo: Int,
+    codAno: String,
     nome: String,
     onSelected: () -> Unit
 ) {
@@ -63,7 +63,7 @@ fun ModeloCard(
                 )
                 Spacer(modifier = Modifier.size(8.dp))
                 Text(
-                    text = codModelo.toString(),
+                    text = codAno,
                     style = Typography.bodyMedium,
                     color = Zinc100
                 )
@@ -76,7 +76,7 @@ fun ModeloCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.car),
+                    painter = painterResource(id = R.drawable.ic_calendar),
                     contentDescription = "Ícone do veículo",
                     modifier = Modifier.size(20.dp),
                     colorFilter = ColorFilter.tint(Lime300)

@@ -12,7 +12,6 @@ class MarcasViewModel(
 ) : ViewModel() {
     val allMarcas = mutableStateListOf<Marca>()
     var marcas = mutableStateListOf<Marca>()
-        private set
     fun carregarMarcas() {
         viewModelScope.launch {
             try {

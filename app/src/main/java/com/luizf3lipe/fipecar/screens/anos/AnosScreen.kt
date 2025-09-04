@@ -1,4 +1,4 @@
-package com.luizf3lipe.fipecar.screens.modelos
+package com.luizf3lipe.fipecar.screens.anos
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,22 +23,23 @@ import androidx.navigation.NavController
 import com.luizf3lipe.fipecar.AppViewModelFactory
 import com.luizf3lipe.fipecar.components.Goback
 import com.luizf3lipe.fipecar.components.SearchInput
-import com.luizf3lipe.fipecar.components.modelos.ModeloCard
+import com.luizf3lipe.fipecar.components.anos.AnosCard
 import com.luizf3lipe.fipecar.ui.theme.Typography
 import com.luizf3lipe.fipecar.ui.theme.Zinc50
 import com.luizf3lipe.fipecar.ui.theme.Zinc950
 
 @Composable
-fun ModelosScreen(
+fun AnosScreen(
     navController: NavController,
     codigoMarca: String,
-    viewModel: ModelosViewModel = viewModel(factory = AppViewModelFactory())
+    codigoModelo: Int,
+    viewModel: AnosViewModel = viewModel(factory = AppViewModelFactory())
 ) {
-    LaunchedEffect(codigoMarca) {
-        viewModel.carregarModelos(codigoMarca)
+    LaunchedEffect(codigoMarca, codigoModelo) {
+        viewModel.carregarAnos(codigoMarca, codigoModelo)
     }
 
-    val modelos = viewModel.modelos
+    val anos = viewModel.anos
 
     Column(
         modifier = Modifier
@@ -58,7 +59,7 @@ fun ModelosScreen(
 
             // Título no topo, centralizado
             Text(
-                text = "Modelos",
+                text = "Anos",
                 style = Typography.headlineLarge,
                 color = Zinc50,
                 modifier = Modifier
@@ -72,7 +73,7 @@ fun ModelosScreen(
         SearchInput(
             placeholder = "Buscar por modelos...",
             onSearch = { search ->
-                viewModel.filtrarModelos(search)
+                viewModel.filtrarAnos(search)
             }
         )
 
@@ -82,12 +83,12 @@ fun ModelosScreen(
             modifier = Modifier.fillMaxSize().padding(bottom = 52.dp),
             verticalArrangement = Arrangement.spacedBy((-12).dp)
         ) {
-            items(modelos) { modelo ->
-                ModeloCard(
-                    codModelo = modelo.codigo,
-                    nome = modelo.nome,
+            items(anos) { ano ->
+                AnosCard(
+                    codAno = ano.codigo,
+                    nome = ano.nome,
                     onSelected = {
-                        navController.navigate("anos/${codigoMarca}/${modelo.codigo}")
+                        navController.navigate("veiculo/$codigoMarca/$codigoModelo/${ano.codigo}")
                     }
                 )
             }

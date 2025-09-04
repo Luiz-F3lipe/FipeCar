@@ -32,7 +32,7 @@ class FipeClient {
         return client.get("$_baseUrl/marcas/$codMarca/modelos").body()
     }
 
-    suspend fun getAnos(codMarca: String, codModelo: String): List<AnosResponseDto> {
+    suspend fun getAnos(codMarca: String, codModelo: Int): List<AnosResponseDto> {
         return client.get("$_baseUrl/marcas/$codMarca/modelos/$codModelo/anos").body()
     }
 
